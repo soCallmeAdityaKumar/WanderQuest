@@ -12,7 +12,6 @@ const DetailsPage = () => {
     difficulty: 'Easy',
     prerequisites: 'None',
     rewards: 'Earn 100 points upon completion',
-    participantLimit: 20,
     organizer: 'Local Tour Guides Inc.',
     organizerContact: 'tourguides@example.com',
     tasksOverview: [
@@ -44,9 +43,7 @@ const DetailsPage = () => {
               <li><span className="font-semibold">Location:</span> {quest.location}</li>
               <li><span className="font-semibold">Duration:</span> {quest.duration}</li>
               <li><span className="font-semibold">Difficulty:</span> {quest.difficulty}</li>
-              <li><span className="font-semibold">Prerequisites:</span> {quest.prerequisites}</li>
               <li><span className="font-semibold">Rewards:</span> {quest.rewards}</li>
-              <li><span className="font-semibold">Participant Limit:</span> {quest.participantLimit}</li>
             </ul>
           </div>
           <div>

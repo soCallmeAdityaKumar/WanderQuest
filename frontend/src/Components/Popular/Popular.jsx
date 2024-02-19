@@ -85,7 +85,6 @@ const Popular = () => {
                       <span className="dot">
                         <BsDot className="icon" />
                       </span>
-                      WanderQuest
                     </span>
                   </div>
                 </div>

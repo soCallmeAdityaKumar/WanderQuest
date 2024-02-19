@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import COVER_IMAGE from "../../assets/6345765_24850.jpg";
+import Select from 'react-select'
 
 const QuestsForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState([]);
   const [location, setLocation] = useState("");
   const [duration, setDuration] = useState("");
   const [difficulty, setDifficulty] = useState("");
-  const [participantLimit, setParticipantLimit] = useState('');
   const [rewards, setRewards] = useState("");
   const [additionalInfo, setAdditionalInfo] = useState("");
 
@@ -16,6 +16,16 @@ const QuestsForm = () => {
     event.preventDefault();
     // Here you can handle form submission, e.g., sending data to backend
   };
+
+  const options = [
+    { value: 'Exploration', label: 'Exploration' },
+    { value: 'Adventure', label: 'Adventure' },
+    { value: 'Art & Creativity', label: 'Art & Creativity' },
+    { value: 'Wellness', label: 'Wellness' },
+    { value: 'Nightlife & Entertainment', label: 'Nightlife & Entertainment' },
+    { value: 'Sports & Recreation', label: 'Sports & Recreation' },
+    { value: 'Local Events', label: 'Local Events' },
+  ]
 
   return (
     <div className="w-full h-full grid items-start p-10 bg-[#28282B]">
@@ -68,23 +78,13 @@ const QuestsForm = () => {
               >
                 Category
               </label>
-              <select
+              <Select
                 id="category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-full text-black my-2 bg-transparent border-b border-black outline-none focus:outline-none text-[17px]"
                 required
-              >
-                <option value="">Select Category</option>
-                <option value="explore">Exploration</option>
-                <option value="adventure">Adventure</option>
-                <option value="culinary">Culinary</option>
-                <option value="art">Art & Creativity</option>
-                <option value="wellness">Wellness</option>
-                <option value="nightlife">Nightlife & Entertainment</option>
-                <option value="sports">Sports & Recreation</option>
-                <option value="events">Local Events</option>
-              </select>
+                isMulti
+                className="basic-multi-select my-2 cursor-pointer text-[17px]"
+                options={options}
+              />
             </div>
 
             <div>
@@ -157,22 +157,6 @@ const QuestsForm = () => {
                 onChange={(e) => setDuration(e.target.value)}
                 className="w-full text-black my-2 bg-transparent border-b border-black outline-none focus:outline-none text-[17px]"
                 required
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="participantLimit"
-                className="block text-xl font-semibold text-gray-800 mt-8"
-              >
-                Participant Limit
-              </label>
-              <input
-                type="number"
-                id="participantLimit"
-                value={participantLimit}
-                onChange={(e) => setParticipantLimit(e.target.value)}
-                className="w-full text-black my-2 bg-transparent border-b border-black outline-none focus:outline-none text-[17px]"
               />
             </div>
 

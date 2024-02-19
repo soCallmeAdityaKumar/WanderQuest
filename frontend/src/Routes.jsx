@@ -6,6 +6,8 @@ import HomePage from "./Components/Pages/HomePage";
 import QuestsForm from "./Components/QuestForm/QuestsForm";
 import UserProfile from "./Components/Pages/UserProfile";
 import DetailsPage from "./Components/Pages/DetailsPage";
+import AdminLogin from "./Components/authentication/AdminLogin";
+import AdminSignup from "./Components/authentication/AdminSignup";
 
 const RoutesPage = () => {
   return (
@@ -16,6 +18,8 @@ const RoutesPage = () => {
       <Route path="/form" Component={QuestsForm} />
       <Route path="/userprofile" Component={UserProfile} />
       <Route path="/details" Component={DetailsPage} />
+      <Route path="/adminlogin" Component={AdminLogin} />
+      <Route path="adminsignup" Component={AdminSignup} />
     </Routes>
   );
 };
