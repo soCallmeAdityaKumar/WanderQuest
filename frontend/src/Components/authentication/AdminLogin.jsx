@@ -43,15 +43,15 @@ const AdminLogin = () => {
                 Login
               </button>
               <button className="w-full bg-white rounded-full text-[#060606] border-2 border-black font-semibold p-4 my-2 hover:scale-105 hover:opacity-80 duration-300">
-                <a href="/signup">Register</a>
+                <a href="/adminsignup">Register</a>
               </button>
             </div>
           </div>
           <div className="w-full items-center flex justify-center">
             <p className="text-sm font-normal text-[#060606]">
-              Don't have an account?{" "}
+              Login as a User {"- "}
               <span className="font-semibold underline underline-offset-2 cursor-pointer">
-                <a href="/signup">Sign Up for free</a>
+                <a href="/login">User Login</a>
               </span>
             </p>
           </div>

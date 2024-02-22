@@ -19,7 +19,7 @@ const RoutesPage = () => {
       <Route path="/userprofile" Component={UserProfile} />
       <Route path="/details" Component={DetailsPage} />
       <Route path="/adminlogin" Component={AdminLogin} />
-      <Route path="adminsignup" Component={AdminSignup} />
+      <Route path="/adminsignup" Component={AdminSignup} />
     </Routes>
   );
 };

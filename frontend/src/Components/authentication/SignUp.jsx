@@ -14,7 +14,7 @@ const SignUp = () => {
         </div>
         <div className="w-1/2 h-full flex flex-col p-20 bg-[#D8DCDB] justify-between items-center rounded-[25px]">
           <h1 className="text-4xl text-[#060606] font-bold mb-5">
-          <a href="/">WanderQuest</a>
+            <a href="/">WanderQuest</a>
           </h1>
 
           <div className="w-full flex flex-col max-w-[600px]">
@@ -49,7 +49,7 @@ const SignUp = () => {
               </button>
             </div>
           </div>
-          <div className="w-full items-center flex justify-center">
+          <div className="w-full items-center flex justify-center mt-8">
             <p
               className="text-sm font-normal text-[#060606]"
               onClick={handleClick}
@@ -60,6 +60,17 @@ const SignUp = () => {
               </span>
             </p>
           </div>
+          <div className="w-full items-center flex justify-center">
+          <p
+              className="text-sm font-normal text-[#060606] "
+              onClick={handleClick}
+            >
+               Sign Up as a Admin User{" - "}
+              <span className="font-semibold underline underline-offset-2 cursor-pointer">
+                <a href="/adminsignup">Sign Up</a>
+              </span>
+            </p>
+            </div>
         </div>
       </div>
     </div>

@@ -49,9 +49,9 @@ const Login = () => {
           </div>
           <div className="w-full items-center flex justify-center">
             <p className="text-sm font-normal text-[#060606]">
-              Don't have an account?{" "}
+              Login as a Admin User{"- "}
               <span className="font-semibold underline underline-offset-2 cursor-pointer">
-                <a href="/signup">Sign Up for free</a>
+                <a href="/adminlogin">Admin Login</a>
               </span>
             </p>
           </div>

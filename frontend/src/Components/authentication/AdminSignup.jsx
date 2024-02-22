@@ -49,14 +49,25 @@ const AdminSignup = () => {
               </button>
             </div>
           </div>
-          <div className="w-full items-center flex justify-center">
+          <div className="w-full items-center flex justify-center mt-5">
             <p
               className="text-sm font-normal text-[#060606]"
               onClick={handleClick}
             >
               Already registered?{" "}
               <span className="font-semibold underline underline-offset-2 cursor-pointer">
-                <a href="/login">Log In</a>
+                <a href="/adminlogin">Log In</a>
+              </span>
+            </p>
+          </div>
+          <div className="w-full items-center flex justify-center">
+            <p
+              className="text-sm font-normal text-[#060606]"
+              onClick={handleClick}
+            >
+              Sign Up as a User{" - "}
+              <span className="font-semibold underline underline-offset-2 cursor-pointer">
+                <a href="/adminlogin">Sign Up</a>
               </span>
             </p>
           </div>
