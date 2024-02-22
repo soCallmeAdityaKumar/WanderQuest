@@ -15,7 +15,7 @@ const Footer = () => {
       },[])
 
   return (
-    <div className="footer">
+    <div className="footer" id="footer" >
       <div className="secContainer container grid">
         <div data-aos="fade-up" data-aos-duration="2000" className="logoDiv">
 
@@ -23,7 +23,7 @@ const Footer = () => {
             <a href="/" className="logo flex">
               <h1 className="flex text-2xl font-bold">
                 <SiYourtraveldottv className="icon" />
-                WanderQuest
+                Netropolis
               </h1>
             </a>
           </div>
@@ -65,7 +65,7 @@ const Footer = () => {
         <div data-aos="fade-up" data-aos-duration="5000" className="footerLinks">
           <span className="linkTitle">Contact Us</span>
           <span className="phone">+444 555 7778</span>
-          <span className="email">quest@gmail.com</span>
+          <span className="email">netropolis@gmail.com</span>
         </div>
       </div>
     </div>

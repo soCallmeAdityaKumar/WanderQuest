@@ -33,7 +33,7 @@ const Navbar = () => {
           <a href="/" className="logo">
             <h1 className="flex">
               <SiYourtraveldottv className="icon" />
-              WanderQuest
+              Netropolis
             </h1>
           </a>
         </div>
@@ -55,7 +55,7 @@ const Navbar = () => {
               </a>
             </li>
             <li className="navItem">
-              <a href="#" className="navLink">
+              <a href="#footer" className="navLink">
                 Contact
               </a>
             </li>

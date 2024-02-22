@@ -17,7 +17,7 @@ const Home = () => {
           <h1 data-aos="fade-up" className="title">Plan your trip</h1>
           <p data-aos="fade-up" data-aos-duration="2500" className="subTitle">Travel to your favourite place</p>
           <button data-aos="fade-up" data-aos-duration="3000" className="btn">
-            <a href="#">Explore Now</a>
+            <a href="#explore">Explore Now</a>
           </button>
         </div>
 

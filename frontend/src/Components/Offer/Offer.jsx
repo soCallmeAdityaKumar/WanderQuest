@@ -47,10 +47,10 @@ const Offer = () => {
   },[])
 
   return (
-    <section className="offer container section">
+    <section className="offer container section" id="explore" >
       <div className="secContainer">
         <div data-aos="fade-up" data-aos-duration="2000" className="secIntro">
-          <h2 className="secTitle text-2xl font-semibold">Special Offers</h2>
+          <h2 className="secTitle text-2xl font-semibold">Quests Packages</h2>
           <p>
             From historical cities to natural specteculars, come see the best of
             the world!
@@ -95,7 +95,7 @@ const Offer = () => {
                   </div>
 
                   <button className="btn flex">
-                    View Details
+                    <a href="/details">View Details</a>
                     <BsArrowRightShort className="icon" />
                   </button>
                 </div>

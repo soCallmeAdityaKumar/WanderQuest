@@ -14,7 +14,7 @@ const AdminSignup = () => {
         </div>
         <div className="w-1/2 h-full flex flex-col p-20 bg-[#D8DCDB] justify-between items-center rounded-[25px]">
           <h1 className="text-4xl text-[#060606] font-bold mb-5">
-          <a href="/">WanderQuest</a>
+          <a href="/">Netropolis</a>
           </h1>
 
           <div className="w-full flex flex-col max-w-[600px]">
