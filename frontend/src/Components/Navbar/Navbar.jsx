@@ -45,13 +45,13 @@ const Navbar = () => {
               </a>
             </li>
             <li className="navItem">
-              <a href="#" className="navLink">
-                Products
+              <a href="#popular" className="navLink">
+                Popular
               </a>
             </li>
             <li className="navItem">
-              <a href="#" className="navLink">
-                Resources
+              <a href="#explore" className="navLink">
+                Packages
               </a>
             </li>
             <li className="navItem">
@@ -66,6 +66,12 @@ const Navbar = () => {
               </button>
               <button className="btn">
                 <a href="/signup">SignUp</a>
+              </button>
+              <button className="btn">
+                <a href="/">Logout</a>
+              </button>
+              <button className="btn">
+                <a href="/form">Create Quest</a>
               </button>
             </div>
           </ul>

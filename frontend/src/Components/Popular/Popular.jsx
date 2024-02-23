@@ -91,28 +91,30 @@ const Data = [
   },
 ];
 
+const cardsPerPage = 4;
+
 const Popular = () => {
+
   useEffect(() => {
     Aos.init({ duration: 2000 });
   }, []);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const totalItems = 4;
+  const [currentIndex, setcurrentIndex] = useState(0);
+
+  const totalPages = Math.ceil(Data.length / cardsPerPage);
+  const startIndex = currentIndex * cardsPerPage;
+  const endIndex = startIndex + cardsPerPage;
 
   const goToPrevious = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? totalItems - 1 : prevIndex - 1
-    );
+    setcurrentIndex((prevPage) => (prevPage === 0 ? totalPages - 1 : prevPage - 1));
   };
 
   const goToNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === totalItems - 1 ? 0 : prevIndex + 1
-    );
+    setcurrentIndex((prevPage) => (prevPage === totalPages - 1 ? 0 : prevPage + 1));
   };
 
   return (
-    <section className="popular section container">
+    <section className="popular section container" id="popular">
       <div className="secContainer">
         <div className="secHeader flex">
           <div
@@ -120,8 +122,8 @@ const Popular = () => {
             data-aos-duration="2500"
             className="textDiv"
           >
-            <h2 className="secTitle">Popular Activities</h2>
-            <p>
+            <h2 className="secTitle mt-12">Popular Activities</h2>
+            <p className="mt-2">
               From historical cities to natural specteculars, come see the best
               of the world!
             </p>
@@ -132,44 +134,37 @@ const Popular = () => {
             className="iconsDiv flex"
           >
             <button onClick={goToPrevious}>
-              <BsArrowLeftShort className="icon leftIcon"/>
+              <BsArrowLeftShort className="icon leftIcon" />
             </button>
             <button onClick={goToNext}>
               <BsArrowRightShort className="icon" />
             </button>
           </div>
         </div>
-
-        <div className="mainContent grid">
-          {Data.map(({ id, imgSrc, destTitle, location, grade }) => {
-            return (
-              <div data-aos="fade-up" className="singleDestination">
-                <div className="destImage">
-                  <img src={imgSrc} />
-
-                  <div className="overlayInfo">
-                    <h3>{destTitle}</h3>
-                    <p>{location}</p>
-                    <p className="mt-2">{grade}</p>
-                  </div>
-                </div>
-
-                <div className="destFooter">
-                  <div className="number">
-                    {`${id}` <= 9 ? `0${id}` : `${id}`}
-                  </div>
-                  <div className="destText flex">
-                    <h6>{location}</h6>
-                    <span className="flex">
-                      <span className="dot">
-                        <BsDot className="icon" />
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+        <div className="mainContent grid mt-8">
+          
+        {Data.slice(startIndex, endIndex).map(({ id, imgSrc, destTitle, location, grade }, index) => (
+        <div key={id} data-aos="fade-up" className={`singleDestination ${index === currentIndex ? 'active' : ''}`}>
+          <div className="destImage">
+            <img src={imgSrc} />
+            <div className="overlayInfo">
+              <h3>{destTitle}</h3>
+              <p>{location}</p>
+              <p className="mt-2">{grade}</p>
+            </div>
+          </div>
+          <div className="destFooter">
+            <div className="number">{`${id <= 9 ? '0' : ''}${id}`}</div>
+            <div className="destText flex">
+              <h6>{location}</h6>
+              <span className="flex">
+                <span className="dot"><BsDot className="icon" /></span>
+              </span>
+            </div>
+          </div>
+        </div>
+      ))}
+          
         </div>
       </div>
     </section>

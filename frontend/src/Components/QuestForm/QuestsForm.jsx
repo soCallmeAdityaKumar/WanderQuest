@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import COVER_IMAGE from "../../assets/6345765_24850.jpg";
-import Select from 'react-select'
+import Select from "react-select";
+import PuffLoader from "react-spinners/PuffLoader";
 
 const QuestsForm = () => {
   const [title, setTitle] = useState("");
@@ -17,15 +18,22 @@ const QuestsForm = () => {
     // Here you can handle form submission, e.g., sending data to backend
   };
 
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+
   const options = [
-    { value: 'Exploration', label: 'Exploration' },
-    { value: 'Adventure', label: 'Adventure' },
-    { value: 'Art & Creativity', label: 'Art & Creativity' },
-    { value: 'Wellness', label: 'Wellness' },
-    { value: 'Nightlife & Entertainment', label: 'Nightlife & Entertainment' },
-    { value: 'Sports & Recreation', label: 'Sports & Recreation' },
-    { value: 'Local Events', label: 'Local Events' },
-  ]
+    { value: "Exploration", label: "Exploration" },
+    { value: "Adventure", label: "Adventure" },
+    { value: "Art & Creativity", label: "Art & Creativity" },
+    { value: "Wellness", label: "Wellness" },
+    { value: "Nightlife & Entertainment", label: "Nightlife & Entertainment" },
+    { value: "Sports & Recreation", label: "Sports & Recreation" },
+    { value: "Local Events", label: "Local Events" },
+  ];
 
   return (
     <div className="w-full h-full grid items-start p-10 bg-[#28282B]">
@@ -181,7 +189,8 @@ const QuestsForm = () => {
                 type="submit"
                 className="mt-14 w-full bg-[#060606] rounded-full text-white border-2 border-black font-semibold p-4 my-2 hover:scale-105 hover:opacity-80 duration-300"
               >
-                Create Quest
+
+                  Create Quest
               </button>
             </div>
           </form>
