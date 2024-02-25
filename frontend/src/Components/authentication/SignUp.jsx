@@ -1,22 +1,44 @@
 import React, { useState, useEffect } from "react";
 import COVER_IMAGE from "../../assets/cartoon-style-traveling-concept-with-baggage.jpg";
 import PuffLoader from "react-spinners/PuffLoader";
+import { useAuth } from "./service/AuthService";
 
 const SignUp = () => {
-  const [loading, setLoading] = useState(true);
+  const [email,setEmail]=useState('')
+  const [name,setName]=useState('')
+  const [password,setPassword]=useState('')
+  const {signup,loading,error,token,user,message}=useAuth()
+  const [isUser,setIsuser]=useState(true)
+
+
+  useEffect(()=>{
+    console.log('Loading:', loading);
+    console.log('Error:', error);
+    console.log('User:', user);
+    console.log('Message:', message);
+  },[loading])
+  const [loadingPage, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
   }, []);
 
-  const handleClick = () => {};
+
+  const handleSignup=()=>{
+    console.log("name="+name+"email="+email+"password="+password)
+    if(isUser){
+      signup(name,email,password,"user/register")
+    }else{
+      signup(name,email,password,"company/register")
+    }
+  }
 
   return (
     <>
-      {loading ? (
+      {loadingPage ? (
         <div className="flex items-center justify-center mt-28">
-          <PuffLoader color="black" loading={loading} size={100} />
+          <PuffLoader color="black" loading={loadingPage} size={100} />
         </div>
       ) : (
         <div className="w-full h-screen flex items-start p-10 bg-[#28282B]">
@@ -42,24 +64,27 @@ const SignUp = () => {
                     type="text"
                     placeholder="Name"
                     required
+                    onChange={(e)=>setName(e.target.value)}
                     className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none text-[17px]"
                   />
                   <input
                     type="email"
                     placeholder="Email"
                     required
+                    onChange={(e)=>setEmail(e.target.value)}
                     className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none text-[17px]"
                   />
                   <input
                     type="password"
                     placeholder="Password"
                     required
+                    onChange={(e)=>setPassword(e.target.value)}
                     className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none text-[17px]"
                   />
                 </div>
 
                 <div className="w-full flex flex-col my-4">
-                  <button className="w-full bg-[#060606] rounded-full text-white font-semibold p-4 my-2 mt-8 hover:scale-105 hover:opacity-90 duration-300">
+                  <button className="w-full bg-[#060606] rounded-full text-white font-semibold p-4 my-2 mt-8 hover:scale-105 hover:opacity-90 duration-300" onClick={handleSignup}>
                     Sign Up
                   </button>
                 </div>
@@ -67,7 +92,6 @@ const SignUp = () => {
               <div className="w-full items-center flex justify-center mt-8">
                 <p
                   className="text-sm font-normal text-[#060606]"
-                  onClick={handleClick}
                 >
                   Already registered?{" "}
                   <span className="font-semibold underline underline-offset-2 cursor-pointer">
@@ -78,7 +102,6 @@ const SignUp = () => {
               <div className="w-full items-center flex justify-center">
                 <p
                   className="text-sm font-normal text-[#060606] "
-                  onClick={handleClick}
                 >
                   Sign Up as a Admin User{" - "}
                   <span className="font-semibold underline underline-offset-2 cursor-pointer">
