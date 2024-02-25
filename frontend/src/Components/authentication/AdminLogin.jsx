@@ -1,9 +1,33 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import COVER_IMAGE from "../../assets/lifestyle-summer-scene-with-cartoon-design.jpg";
 import PuffLoader from "react-spinners/PuffLoader";
+import { useAuth } from "./service/AuthService";
 
 const AdminLogin = () => {
-  const [loading, setLoading] = useState(true);
+
+  const [email,setEmail]=useState('')
+  const [password,setpassword]=useState('')
+  const {login,loading,error,token,user,message,isLoggedin,isUser}=useAuth()
+  const isuser=false
+
+
+  useEffect(()=>{
+    console.log('Loading:', loading);
+    console.log('Error:', error);
+    console.log('Token:', token);
+    console.log('User:', user);
+    console.log('Message:', message);
+    console.log("isLoggedin",isLoggedin)
+    console.log("isUser",isUser)
+  },[loading])
+
+  const handleLogin=()=>{
+      login(email,password,"company/login",isuser)    
+    // else{
+    //   login(email,password,"company/login")
+    // }
+  }
+  const [loadingPage, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -42,18 +66,20 @@ const AdminLogin = () => {
                     type="email"
                     placeholder="Email"
                     required
+                    onChange={(e)=>setEmail(e.target.value)}
                     className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none text-[17px]"
                   />
                   <input
                     type="password"
                     placeholder="Password"
                     required
+                    onChange={(e)=>setpassword(e.target.value)}
                     className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none text-[17px]"
                   />
                 </div>
 
                 <div className="w-full flex flex-col my-4">
-                  <button className="w-full bg-[#060606] rounded-full text-white font-semibold p-4 my-2 hover:scale-105 hover:opacity-90 duration-300 mt-5">
+                  <button className="w-full bg-[#060606] rounded-full text-white font-semibold p-4 my-2 hover:scale-105 hover:opacity-90 duration-300 mt-5" onClick={handleLogin}>
                     Login
                   </button>
                   <button className="w-full bg-white rounded-full text-[#060606] border-2 border-black font-semibold p-4 my-2 hover:scale-105 hover:opacity-80 duration-300">
