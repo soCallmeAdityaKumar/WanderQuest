@@ -29,13 +29,13 @@ const AdminSignup = () => {
       ) : (
         <div className="w-full h-screen flex items-start p-10 bg-[#28282B]">
           <div className="w-full h-full bg-[#D8DCDB] flex rounded-[25px] ">
-            <div className="w-1/2 h-full flex flex-col">
+            <div className="w-1/2 h-full flex flex-col md:block hidden">
               <img
                 src={COVER_IMAGE}
                 className="w-full h-full object-cover rounded-[25px] p-4"
               />
             </div>
-            <div className="w-1/2 h-full flex flex-col p-20 bg-[#D8DCDB] justify-between items-center rounded-[25px]">
+            <div className="md:w-1/2 h-full flex flex-col p-20 bg-[#D8DCDB] justify-between items-center rounded-[25px]">
               <h1 className="text-4xl text-[#060606] font-bold mb-5">
               <div className="flex">
                   <SiYourtraveldottv className="mr-5" />
