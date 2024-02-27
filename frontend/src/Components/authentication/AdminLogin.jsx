@@ -3,6 +3,7 @@ import COVER_IMAGE from "../../assets/lifestyle-summer-scene-with-cartoon-design
 import PuffLoader from "react-spinners/PuffLoader";
 import { useAuth } from "./service/AuthService";
 import { SiYourtraveldottv } from "react-icons/si";
+import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
 
@@ -22,11 +23,14 @@ const AdminLogin = () => {
     console.log("isUser",isUser)
   },[loading])
 
+  const navigate = useNavigate();
+
   const handleLogin=()=>{
       login(email,password,"company/login",isuser)    
     // else{
     //   login(email,password,"company/login")
     // }
+    navigate('/');
   }
   const [loadingPage, setLoading] = useState(true);
   useEffect(() => {

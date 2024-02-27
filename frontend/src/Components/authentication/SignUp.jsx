@@ -3,6 +3,7 @@ import COVER_IMAGE from "../../assets/cartoon-style-traveling-concept-with-bagga
 import PuffLoader from "react-spinners/PuffLoader";
 import { useAuth } from "./service/AuthService";
 import { SiYourtraveldottv } from "react-icons/si";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -24,6 +25,8 @@ const SignUp = () => {
     }, 2000);
   }, []);
 
+  const navigate = useNavigate();
+
   const handleSignup = () => {
     console.log("name=" + name + "email=" + email + "password=" + password);
     if (isUser) {
@@ -31,6 +34,7 @@ const SignUp = () => {
     } else {
       signup(name, email, password, "company/register");
     }
+    navigate('/');
   };
 
   return (

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import COVER_IMAGE from "../../assets/cartoon-style-traveling-concept-with-baggage.jpg";
 import PuffLoader from "react-spinners/PuffLoader";
 import { SiYourtraveldottv } from "react-icons/si";
+import { useNavigate } from "react-router-dom";
 
 const AdminSignup = () => {
   const [loading, setLoading] = useState(true);
@@ -11,7 +12,13 @@ const AdminSignup = () => {
     }, 2000);
   }, []);
 
+  const navigate = useNavigate();
+
   const handleClick = () => {};
+
+  const handleSignup = () => {
+    navigate('/');
+  };
 
   return (
     <>
