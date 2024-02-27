@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import COVER_IMAGE from "../../assets/cartoon-style-traveling-concept-with-baggage.jpg";
 import PuffLoader from "react-spinners/PuffLoader";
+import { SiYourtraveldottv } from "react-icons/si";
 
 const AdminSignup = () => {
   const [loading, setLoading] = useState(true);
@@ -29,7 +30,10 @@ const AdminSignup = () => {
             </div>
             <div className="w-1/2 h-full flex flex-col p-20 bg-[#D8DCDB] justify-between items-center rounded-[25px]">
               <h1 className="text-4xl text-[#060606] font-bold mb-5">
-                <a href="/">Netropolis</a>
+              <div className="flex">
+                  <SiYourtraveldottv className="mr-5" />
+                  <a href="/">Netropolis</a>
+                </div>
               </h1>
 
               <div className="w-full flex flex-col max-w-[600px]">

@@ -1,32 +1,38 @@
 import React, { useEffect, useState } from "react";
 import COVER_IMAGE from "../../assets/lifestyle-summer-scene-with-cartoon-design.jpg";
 import PuffLoader from "react-spinners/PuffLoader";
-import  {useAuth}  from "./service/AuthService"
+import { useAuth } from "./service/AuthService";
+import { SiYourtraveldottv } from "react-icons/si";
+// import { useHistory } from "react-router-dom";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setpassword] = useState("");
+  const { login, loading, error, token, user, message, isLoggedin, isUser } =
+    useAuth();
+  const isuser = true;
 
-  const [email,setEmail]=useState('')
-  const [password,setpassword]=useState('')
-  const {login,loading,error,token,user,message,isLoggedin,isUser}=useAuth()
-  const isuser=true
+  useEffect(() => {
+    console.log("Loading:", loading);
+    console.log("Error:", error);
+    console.log("Token:", token);
+    console.log("User:", user);
+    console.log("Message:", message);
+    console.log("isLoggedin", isLoggedin);
+    console.log("isUser", isUser);
+  }, [loading]);
 
+  // const history = useHistory();
 
-  useEffect(()=>{
-    console.log('Loading:', loading);
-    console.log('Error:', error);
-    console.log('Token:', token);
-    console.log('User:', user);
-    console.log('Message:', message);
-    console.log("isLoggedin",isLoggedin)
-    console.log("isUser",isUser)
-  },[loading])
+  const handleLogin = () => {
+    login(email, password, "user/login", isuser);
 
-  const handleLogin=()=>{
-      login(email,password,"user/login",isuser)
+    // history.push("/");
+
     // else{
     //   login(email,password,"company/login")
     // }
-  }
+  };
 
   const [loadingPage, setLoading] = useState(true);
 
@@ -43,8 +49,8 @@ const Login = () => {
           <PuffLoader color="black" loading={loadingPage} size={100} />
         </div>
       ) : (
-        <div className="w-full h-screen flex items-start p-10 bg-[#28282B]">
-          <div className="w-full h-full bg-[#D8DCDB] flex rounded-[25px]">
+        <div className="w-full h-screen md:p-5 lg:p-10 flex items-start p-10 bg-[#28282B]">
+          <div className="w-full h-full bg-[#D8DCDB] sm:p-1 flex rounded-[25px]">
             <div className="w-1/2 h-full flex flex-col">
               <img
                 src={COVER_IMAGE}
@@ -53,7 +59,10 @@ const Login = () => {
             </div>
             <div className="w-1/2 h-full flex flex-col p-20 bg-[#D8DCDB] justify-between items-center rounded-[25px]">
               <h1 className="text-4xl text-[#060606] font-bold mb-5">
-                <a href="/">Netropolis</a>
+                <div className="flex">
+                  <SiYourtraveldottv className="mr-5"/>
+                  <a href="/">Netropolis</a>
+                </div>
               </h1>
 
               <div className="w-full flex flex-col max-w-[600px]">
@@ -68,20 +77,23 @@ const Login = () => {
                     type="email"
                     placeholder="Email"
                     required
-                    onChange={(e)=>setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none text-[17px]"
                   />
                   <input
                     type="password"
                     placeholder="Password"
                     required
-                    onChange={(e)=>setpassword(e.target.value)}
+                    onChange={(e) => setpassword(e.target.value)}
                     className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none text-[17px]"
                   />
                 </div>
 
-                <div className="w-full flex flex-col my-4">
-                  <button className="w-full bg-[#060606] rounded-full text-white font-semibold p-4 my-2 hover:scale-105 hover:opacity-90 duration-300 mt-5" onClick={handleLogin}>
+                <div className="w-full flex flex-col my-4 mb-8">
+                  <button
+                    className="w-full bg-[#060606] rounded-full text-white font-semibold p-4 my-2 hover:scale-105 hover:opacity-90 duration-300 mt-5"
+                    onClick={handleLogin}
+                  >
                     Login
                   </button>
                   <button className="w-full bg-white rounded-full text-[#060606] border-2 border-black font-semibold p-4 my-2 hover:scale-105 hover:opacity-80 duration-300">
