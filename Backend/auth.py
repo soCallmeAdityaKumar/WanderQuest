@@ -89,7 +89,7 @@ def register_user():
                 cursor.execute(GET_USER_EMAIL,(email,))
                 answer=cursor.fetchone()[0]
                 if answer:
-                    return jsonify({"message":"User already exist"})
+                    return jsonify({"message":"User already exist"}),200
                 else:
                     # cursor.execute(INSERT_NEW_USER,(name,bio,email,hashed_password,specialization,intrested_work_places ,datetimes,))
                     cursor.execute(INSERT_NEW_USER,(name,email,hashed_password,datetimes,))
@@ -99,7 +99,7 @@ def register_user():
             except Exception as e:
                     print(e)
 
-    return  jsonify({"message":"Failed to create user"}),400
+    return  jsonify({"message":"Failed to create user"}),200
 
 
 #Login
@@ -127,14 +127,14 @@ def login_user():
                                 user=cursor.fetchall()
                                 print(user)
                                 # return jsonify({"user":user,"token":access_token})
-                                return jsonify({"message":"Loggedin successfully","user":user,"token":access_token,"refresh_token":refresh_token})
+                                return jsonify({"message":"Loggedin successfully","user":user,"token":access_token,"refresh_token":refresh_token}),201
                         except Exception as e:
                             print(e)
                     else:
-                        return jsonify({"message":"User Doesn't Exists"})
+                        return jsonify({"message":"User Doesn't Exists"}),200
     except Exception as e:
          print(e)
-    return jsonify({"error":"Invalid email or password"}),400
+    return jsonify({"error":"Invalid email or password"}),200
 
 #profile user
 @authUser_bp.get('/profile')
@@ -144,12 +144,13 @@ def get_user():
     try:
         with connection:
             with connection.cursor() as cursor:
+                    cursor.execute(CREATE_NEW_USER)
                     cursor.execute(GET_USER_PROFILE,(user_email,))
                     data=cursor.fetchone() 
-                    return jsonify(data)
+                    return jsonify(data),201
     except Exception as e:
                 print(e)
-    return jsonify({"result":"User Doesn't exists"}),400
+    return jsonify({"result":"User Doesn't exists"}),200
 
 @authUser_bp.put('/change_profile')
 @jwt_required()
@@ -195,9 +196,9 @@ def update_user():
                 cursor.execute(UPDATE_USER_PROFILE,(name,location,bio,quest_preferences,rewards,quest_completed,email,))
                 cursor.execute(GET_USER_PROFILE,(email,))
                 user=cursor.fetchone()
-                return jsonify({"message":"Updated Successfully","user":user})
+                return jsonify({"message":"Updated Successfully","user":user}),201
      except Exception as e:
-          return jsonify({"message":"Failed to update"})
+          return jsonify({"message":"Failed to update"}),200
 
         
     #  try:
@@ -231,7 +232,7 @@ def register_company():
             with connection.cursor() as cursor:
                 try:
                     if answer:
-                        return jsonify({"message":"Company already exist"})
+                        return jsonify({"message":"Company already exist"}),200
                     else:
                         cursor.execute(INSERT_NEW_COMPANY,(name, email, hashedPassword, datetimes))
                         cursor.execute(GET_COMPANY_PROFILE,(email,))
@@ -240,7 +241,7 @@ def register_company():
                 except Exception as e:
                         print(e)
 
-    return  jsonify({"message":"Failed to create"}),400
+    return  jsonify({"message":"Failed to create"}),200
 
 
 
@@ -274,7 +275,7 @@ def login_company():
             except Exception as e:
                     print(e)
 
-    return jsonify({"error":"Invalid name or password"}),400
+    return jsonify({"error":"Invalid name or password"}),200
 
 
 @authComp_bp.get('/company_for_quest')
@@ -285,7 +286,7 @@ def get_company_details():
             with connection.cursor() as cursor:
                     cursor.execute(GET_COMPANY_PROFILE_FROM_ID,(id,))
                     data=cursor.fetchone() 
-                    return jsonify(data)
+                    return jsonify(data),201
     except Exception as e:
                 print(e)
-    return jsonify({"result":"User Doesn't exists"}),400
+    return jsonify({"result":"User Doesn't exists"}),200

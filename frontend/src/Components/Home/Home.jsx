@@ -15,6 +15,10 @@ const Home = ({handleDataFromHome}) => {
     console.log("Data changed")
     handleDataFromHome(data)
   }
+
+  // useEffect(()=>{
+  //   handleSearch()
+  // },[location,category,company])
   // useEffect(()=>{
   //   console.log("Home -> HandleData->",data)
   //   console.log("Data changed")

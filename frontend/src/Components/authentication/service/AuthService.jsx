@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { createContext, useContext, useReducer } from 'react';
 const BASE_URL='http://localhost:5000/auth/'
 const initialState = {
+  statusCode:null,
   user: null,
   token: localStorage.getItem('Token'),
   message:null,
@@ -14,13 +15,13 @@ const initialState = {
 const authReducer = (state, action) => {
   switch (action.type) {
     case 'SIGNUP_REQUEST':
-      return { ...state, loading: true, error: null,token:null,message:null,user:null,isLoggedin:false,isUser:null };
+      return { ...state,statusCode:null, loading: true, error: null,token:null,message:null,user:null,isLoggedin:false,isUser:null };
     case 'LOGIN_REQUEST':
-      return { ...state, loading: true, error: null,token:null,message:null,user:null ,isLoggedin:false,isUser:null};
+      return { ...state,statusCode:null, loading: true, error: null,token:null,message:null,user:null ,isLoggedin:false,isUser:null};
     case 'AUTH_SUCCESS':
-      return { ...state, user:action.payload.user ,token: action.payload.token,message:action.payload.message,isLoggedin:action.payload.isLoggedin,isUser:action.payload.isUser,loading: false, error: null, };
+      return { ...state,statusCode:action.payload.statusCode, user:action.payload.user ,token: action.payload.token,message:action.payload.message,isLoggedin:action.payload.isLoggedin,isUser:action.payload.isUser,loading: false, error: null, };
     case 'AUTH_ERROR':
-      return { ...state, loading: false, error: action.payload,isLoggedin:action.payload.isLoggedin };
+      return {...state, statusCode:action.payload.statusCode, loading: false,message:action.payload.message, error: action.payload.error,isLoggedin:action.payload.isLoggedin };
     default:
       return state;
   }
@@ -36,9 +37,9 @@ class SignupService {
         email,
         password,
       });
-
-      const {user,message} = response.data;
-      return { user,message};
+      return response;
+      // const {user,message} = response.data;
+      // return { user,message};
     } catch (error) {
       throw new Error('Signup failed. Please try again.');
     }
@@ -53,10 +54,9 @@ class LoginService {
         password,
       });
 
-      const {user,token,message}= response.data;
-      localStorage.setItem('Token',token)
-      return {user,token,message};
+      return response;
     } catch (error) {
+
       throw new Error('Login failed. Please try again.');
     }
   }
@@ -69,10 +69,23 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: 'SIGNUP_REQUEST' });
 
     try {
-      const {user,message} = await SignupService.signup(name, email, password,endpoint,isuser);
-      dispatch({ type: 'AUTH_SUCCESS', payload: {user,token:null,message,isLoggedin:false,isUser:isuser} });
+      const resp=await SignupService.signup(name, email, password,endpoint,isuser);
+      const {message}=resp.data
+      if(resp.status===201){
+        const {user}=resp.data
+        localStorage.setItem('isLoggedin',false)
+        localStorage.setItem('Token',null)
+        dispatch({ type: 'AUTH_SUCCESS', payload: {statusCode:resp.status,user:user,token:null,message:message,isLoggedin:false,isUser:isuser} });
+      }else{
+        localStorage.setItem('isLoggedin',false)
+        localStorage.setItem('Token',null)
+        dispatch({ type: 'AUTH_ERROR', payload: {statusCode:resp.status,message:message,isLoggedin:false} });
+      }
     } catch (error) {
-      dispatch({ type: 'AUTH_ERROR', payload: {message,isLoggedin:false} });
+      console.log("Inside the catch")
+      localStorage.setItem('Token',null)
+      localStorage.setItem('isLoggedin',false)
+      dispatch({ type: 'AUTH_ERROR', payload: {message:"Failed to Register!!.Try after Some time",isLoggedin:false} });
     }
   };
 
@@ -80,26 +93,41 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: 'LOGIN_REQUEST' });
 
     try {
-      const {user,token,message}  = await LoginService.login(email, password,endpoint,isuser);
-      localStorage.setItem('isLoggedin',true)
-      localStorage.setItem('isUser',isuser)
-      dispatch({ type: 'AUTH_SUCCESS', payload:  {user,token,message,isLoggedin:true,isUser:isuser}  });
+      const resp  = await LoginService.login(email, password,endpoint,isuser);
+      
+      // const resp=await SignupService.signup(name, email, password,endpoint,isuser);
+      const {message}=resp.data
+      if(resp.status===201){
+        const {user,token}=resp.data
+        localStorage.setItem('isLoggedin',true)
+        localStorage.setItem('isUser',isuser)
+        localStorage.setItem('Token',token)
+        dispatch({ type: 'AUTH_SUCCESS', payload:  {statusCode:resp.status,user,token,message,isLoggedin:true,isUser:isuser}});
+      }else{
+        localStorage.setItem('isLoggedin',false)
+        localStorage.setItem('Token',null)
+        dispatch({ type: 'AUTH_ERROR', payload: {statusCode:resp.status,message:message,isLoggedin:false} });
+      }
     } catch (error) {
-      dispatch({ type: 'AUTH_ERROR', payload: {message,isLoggedin:false} });
+      localStorage.setItem('isLoggedin',false)
+      localStorage.setItem('Token',null)
+      dispatch({ type: 'AUTH_ERROR', payload: {message:"Failed to Login ",isLoggedin:false} });
     }
   };
 
   const logout = () => {
     //TODO
-    localStorage.setItem('Token',null)
-    localStorage.setItem('isLoggedin',isLoggedin)
-    localStorage.setItem('isUser',null)
+    console.log("Inside the logout function->")
     dispatch({ type: 'LOGOUT' });
+    localStorage.setItem('Token',null)
+    localStorage.setItem('isLoggedin',false)
+    localStorage.setItem('isUser',null)
   };
 
   return (
     <AuthContext.Provider
       value={{
+        statusCode:state.statusCode,
         user: state.user,
         token: state.token,
         loading: state.loading,

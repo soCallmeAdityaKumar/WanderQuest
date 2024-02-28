@@ -59,9 +59,10 @@ const Offer = ({questData,change,isChange}) => {
       try{
         const response=await axios.get('http://localhost:5000/jobs/all')
         if(response){
-          console.log("jobs->"+response.data)
-          off=response.data
-          setOffers(off)
+          off=response.data.jobs
+          console.log(off)
+          if(off)setOffers(off)
+          console.log("offers->",offers)
           // for(let i= 0; i<length(response.data);i++){
           //   console.log("categor->",item)
           // }
@@ -104,8 +105,7 @@ const Offer = ({questData,change,isChange}) => {
           </div>
         ) : (
           <div className="mainContent grid">
-            {offers.map(({job_id,title,location,category,rewards})  => {
-              // const detailsLink=`/details/${job_id}`
+            {offers.length>0?(offers.map(({job_id,title,location,category,rewards})  => {
               return (
                 <div
                   data-aos="fade-up"
@@ -127,22 +127,6 @@ const Offer = ({questData,change,isChange}) => {
                         <MdKingBed className="icon" />
                         <small>{i}</small>
                       </div>)})}
-                      {/* <div className="singleAmenity flex">
-                        <MdKingBed className="icon" />
-                        <small>2 Beds</small>
-                      </div>
-                      <div className="singleAmenity flex">
-                        <MdBathtub className="icon" />
-                        <small>1 Bath</small>
-                      </div>
-                      <div className="singleAmenity flex">
-                        <FaWifi className="icon" />
-                        <small>Wi-Fi</small>
-                      </div>
-                      <div className="singleAmenity flex">
-                        <MdAirportShuttle className="icon" />
-                        <small>Shuttle</small>
-                      </div> */}
                     </div>
 
                     <div className="location flex">
@@ -157,7 +141,7 @@ const Offer = ({questData,change,isChange}) => {
                   </div>
                 </div>
               );
-            })}
+            })):(<div className="flex items-center justify-center mt-28"><h2 className="secTitle text-2xl font-semibold">Coming soon...</h2></div>)}
           </div>
         )}
       </div>

@@ -17,6 +17,7 @@ const UserProfile = () => {
     { id: 3, title: "Street Art Tour", category: "Art & Creativity" },
   ]);
   const [questPreferences, setQuestPreferences] = useState([]);
+  //Todo Error when empty
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -54,7 +55,9 @@ const UserProfile = () => {
     console.log(name)
     console.log(token)
   },[token])
+  const [updating,setUpdating]=useState(false)
   const handleUpdate= async()=>{
+    setUpdating(true)
   try{
       const {message,user}= await axios.put('http://localhost:5000/auth/user/change_profile',reqBody,{
         headers: {
@@ -68,6 +71,8 @@ const UserProfile = () => {
     catch{
      console.log("Cannot Change Profile")
     }
+    setUpdating(false)
+
 }
   const getProfile= async()=>{
     try{
@@ -77,14 +82,14 @@ const UserProfile = () => {
           'Content-Type': 'application/json'
         }
         })
+        console.log("pr",response.data[0])
         const obj=response.data[0]
-        setName(obj.name)
-        setLocation(obj.location)
-        setEmail(obj.email)
-        setBio(obj.bio)
-        setName(obj.name)
-        setRewardsEarned(obj.rewards)
-        setQuestPreferences(obj.quest_preferences)
+        if(obj.name)setName(obj.name)
+        if(obj.location)setLocation(obj.location)
+        if(obj.email)setEmail(obj.email)
+        if(obj.bio)setBio(obj.bio)
+        if(obj.rewards)setRewardsEarned(obj.rewards)
+        if(obj.quest_preferences)setQuestPreferences(obj.quest_preferences)
 
         console.log("GETProfile->"+obj.name)
     }
@@ -272,7 +277,7 @@ const UserProfile = () => {
                 className="mt-14 w-full bg-[#060606] rounded-full text-white border-2 border-black font-semibold p-4 my-2 hover:scale-105 hover:opacity-80 duration-300"
                 onClick={handleUpdate}
               >
-                Update Profile
+                {updating?("Updating..."):("Update Profile")}
               </button>
             </div>
           </form>

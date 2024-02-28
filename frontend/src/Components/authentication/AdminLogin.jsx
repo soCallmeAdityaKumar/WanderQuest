@@ -1,28 +1,28 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import COVER_IMAGE from "../../assets/lifestyle-summer-scene-with-cartoon-design.jpg";
-import PuffLoader from "react-spinners/PuffLoader";
 import { useAuth } from "./service/AuthService";
+import PuffLoader from "react-spinners/PuffLoader";
 
 const AdminLogin = () => {
 
-  const [email,setEmail]=useState('')
-  const [password,setpassword]=useState('')
-  const {login,loading,error,token,user,message,isLoggedin,isUser}=useAuth()
-  const isuser=false
+  const [email, setEmail] = useState('')
+  const [password, setpassword] = useState('')
+  const { login, loading, error, token, user, message, isLoggedin, isUser } = useAuth()
+  const isuser = false
 
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log('Loading:', loading);
     console.log('Error:', error);
     console.log('Token:', token);
     console.log('User:', user);
     console.log('Message:', message);
-    console.log("isLoggedin",isLoggedin)
-    console.log("isUser",isUser)
-  },[loading])
+    console.log("isLoggedin", isLoggedin)
+    console.log("isUser", isUser)
+  }, [loading])
 
-  const handleLogin=()=>{
-      login(email,password,"company/login",isuser)    
+  const handleLogin = () => {
+    login(email, password, "company/login", isuser)
     // else{
     //   login(email,password,"company/login")
     // }
@@ -36,9 +36,9 @@ const AdminLogin = () => {
 
   return (
     <>
-      {loading ? (
+      {loadingPage ? (
         <div className="flex items-center justify-center mt-28">
-          <PuffLoader color="black" loading={loading} size={100} />
+          <PuffLoader color="black" loading={loadingPage} size={100} />
         </div>
       ) : (
         <div className="w-full h-screen flex items-start p-10 bg-[#28282B]">
@@ -66,22 +66,26 @@ const AdminLogin = () => {
                     type="email"
                     placeholder="Email"
                     required
-                    onChange={(e)=>setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none text-[17px]"
                   />
                   <input
                     type="password"
                     placeholder="Password"
                     required
-                    onChange={(e)=>setpassword(e.target.value)}
+                    onChange={(e) => setpassword(e.target.value)}
                     className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none text-[17px]"
                   />
                 </div>
-
                 <div className="w-full flex flex-col my-4">
                   <button className="w-full bg-[#060606] rounded-full text-white font-semibold p-4 my-2 hover:scale-105 hover:opacity-90 duration-300 mt-5" onClick={handleLogin}>
-                    Login
+                    {loading ? ("Logging in....") : ("Login")}
                   </button>
+                  <div className="w-full items-center flex justify-center">
+                    <p className="text-sm font-normal text-[#fb8500]">
+                      {(message === null) ? ("") : (message)}
+                    </p>
+                  </div>
                   <button className="w-full bg-white rounded-full text-[#060606] border-2 border-black font-semibold p-4 my-2 hover:scale-105 hover:opacity-80 duration-300">
                     <a href="/adminsignup">Register</a>
                   </button>
@@ -98,7 +102,8 @@ const AdminLogin = () => {
             </div>
           </div>
         </div>
-      )}
+      )
+      }
     </>
   );
 };

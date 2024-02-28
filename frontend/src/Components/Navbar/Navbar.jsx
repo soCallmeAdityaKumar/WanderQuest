@@ -6,57 +6,40 @@ import { IoReorderThree } from "react-icons/io5";
 import { useAuth } from "../authentication/service/AuthService";
 
 const Navbar = () => {
-  // let login,lgout;
-  const {logout}=useAuth()
-  let isuser=localStorage.getItem('isUser')
-  let isLoggedin=localStorage.getItem('isLoggedin')
-  const [isVisiLogin,setisVisiLogin]=useState(false)
-  const [isVisiUser,setisVisiUser]=useState(false)
-  // if(isVisiLogin){
-  //   login=((<button className="btn loginBtn">
-  //   <a href="/login">Login</a>
-  // </button>)&&
-  // (<button className="btn">
-  //   <a href="/signup">SignUp</a>
-  // </button>))
-  // }
-  // else{
-  //   login=(<button className="btn" onClick={() => handleLogout}>
-  //   <a href="/">Logout</a>
-  // </button>)
-  // }
-  useEffect(()=>{
-    console.log("isLoggedin,isUser->",isLoggedin+" "+isuser)
-    setisVisiLogin(isLoggedin)
-   
-    console.log("isVisiLogin,isVisiUser->",isVisiLogin+" "+isVisiUser)
-  },[isVisiLogin])
-    const [active, setactive] = useState('navBar');
+  const [active, setactive] = useState('navBar');
+  
+  const showNav = () => {
+    setactive('navBar activeNavbar');
+  }
+  const closeNav = () => {
+    setactive('navBar');
+  }
+  const [loggedin,setLoggedin]=useState(false)
+  const { logout } = useAuth()
+  useEffect(() => {
+    const isLoggedin = localStorage.getItem('isLoggedin');
+    setLoggedin(isLoggedin); 
+  }, []);
+  const handleLogout = (e) => {
+    e.preventDefault()
+    logout()
+    localStorage.removeItem('isLoggedin'); 
+    localStorage.removeItem('isUser')
+    // console.log("isLoggedin-> after logout",isLoggedin)
+    setLoggedin(!loggedin)
+    setisuser(false)
+  }
 
-    const showNav = () => {
-        setactive('navBar activeNavbar');
+  const [transparent, setTransparent] = useState('header');
+  const addBg = () => {
+    if (window.scrollY >= 10) {
+      setTransparent('header activeHeader')
     }
-    const closeNav = () => {
-        setactive('navBar');
+    else {
+      setTransparent('header')
     }
-    const handleLogout=()=>{
-      logout()
-      setisVisiLogin(false)
-      // setisVisiUser(false)
-      isuser=localStorage.getItem('isUser')
-      isLoggedin=localStorage.getItem('isLoggedin')
-    }
-
-    const [transparent, setTransparent] = useState('header');
-    const addBg = () => {
-      if(window.scrollY >= 10) {
-        setTransparent('header activeHeader')
-      }
-      else{
-        setTransparent('header')
-      }
-    }
-    window.addEventListener('scroll', addBg)
+  }
+  window.addEventListener('scroll', addBg)
 
   return (
     <section className="navBarSection">
@@ -92,30 +75,27 @@ const Navbar = () => {
               </a>
             </li>
             <div className="headerBtns flex">
-              {!isVisiLogin ? ((<button className="btn loginBtn">
+              {!loggedin&&<button className="btn loginBtn">
                 <a href="/login">Login</a>
-              </button>)&&
-              (<button className="btn">
+              </button>}
+              {!loggedin&&<button className="btn">
                 <a href="/signup">SignUp</a>
-              </button>)):
-             (<button className="btn" onClick={() => handleLogout}>
-                <a href="/">Logout</a>
-              </button>)}
-              {/* {login} */}
-              {/* {isVisiLogin &&
-              <button className="btn">
+              </button>}
+              {loggedin &&<button className="btn"  onClick={(e)=>handleLogout(e)}>
+              <a>Logout</a>
+              </button>}
+             {<button className="btn">
                 <a href="/form">Create Quest</a>
-              </button>} */}
-              
+              </button>}
             </div>
+            
           </ul>
           <div className="closeNavbar" onClick={closeNav}>
             <IoMdCloseCircle className="icon" />
           </div>
         </div>
-
         <div className="toggleNavbar" onClick={showNav}>
-        <IoReorderThree className="icon"/>
+          <IoReorderThree className="icon" />
         </div>
       </div>
     </section>

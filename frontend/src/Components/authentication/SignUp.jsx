@@ -7,7 +7,7 @@ const SignUp = () => {
   const [email,setEmail]=useState('')
   const [name,setName]=useState('')
   const [password,setPassword]=useState('')
-  const {signup,loading,error,token,user,message}=useAuth()
+  const {signup,loading,error,token,user,message,statusCode}=useAuth()
   const [isUser,setIsuser]=useState(true)
 
 
@@ -85,8 +85,13 @@ const SignUp = () => {
 
                 <div className="w-full flex flex-col my-4">
                   <button className="w-full bg-[#060606] rounded-full text-white font-semibold p-4 my-2 mt-8 hover:scale-105 hover:opacity-90 duration-300" onClick={handleSignup}>
-                    Sign Up
+                  {loading ? ("Signin in....") : ("Sign Up ")}
                   </button>
+                  <div className="w-full items-center flex justify-center">
+                  <p className="text-sm font-normal text-[#fb8500]">
+                    {(message === null) ? ("") : (message)}
+                  </p>
+                </div>
                 </div>
               </div>
               <div className="w-full items-center flex justify-center mt-8">

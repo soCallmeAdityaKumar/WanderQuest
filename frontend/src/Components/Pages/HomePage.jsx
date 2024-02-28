@@ -5,10 +5,19 @@ import Popular from '../Popular/Popular';
 import Offer from '../Offer/Offer';
 import About from '../About/About';
 import Footer from '../Footer/Footer';
+import { useAuth } from '../authentication/service/AuthService';
 
 const HomePage = () => {
   const [questData, setQuest] = useState([]);
   const [change,isChange]=useState(false)
+
+
+
+  // const {logout}=useAuth()
+  // let isuser=localStorage.getItem('isUser')
+  // let isLoggedin=localStorage.getItem('isLoggedin')
+  // console.log("isLoggedin->"+isLoggedin)
+
   const handleDataFromHome = (data) => {
     isChange(true)
     setQuest(data);
@@ -16,7 +25,7 @@ const HomePage = () => {
   };
   return (
     <>
-        <Navbar />
+        <Navbar/>
         <Home handleDataFromHome={handleDataFromHome}/>
         <Popular />
         <Offer questData={questData}  change={change} isChange={isChange}/>

@@ -12,50 +12,66 @@ const QuestsForm = () => {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState([]);
   const [location, setLocation] = useState("");
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(1);
   const [difficulty, setDifficulty] = useState("");
   const [rewards, setRewards] = useState(1000);
   const [additionalInfo, setAdditionalInfo] = useState("");
-  const isLoggedin=localStorage.getItem('isLoggedin')
-  const token=localStorage.getItem('Token')
-  console.log("token->",token)
-  const params={
-    "title":title,
-    "description":description,
-    "category":category,
-    "additional_information":additionalInfo,
-    "location":location,
-    "difficulty":difficulty,
-    "duration":duration,
-    "rewards":rewards
+  const isLoggedin = localStorage.getItem('isLoggedin')
+  const token = localStorage.getItem('Token')
+  console.log("token->", token)
+  const params = {
+    "title": title,
+    "description": description,
+    "category": category,
+    "additional_information": additionalInfo,
+    "location": location,
+    "difficulty": difficulty,
+    "duration": duration,
+    "rewards": rewards
   }
-  const handleCategory=(e)=>{
+  const handleCategory = (e) => {
     // console.log("value->",e )
-    const a=[]
-    e.forEach((ev)=>a.push(ev.value))
+    const a = []
+    e.forEach((ev) => a.push(ev.value))
     setCategory(a)
-    
-  }  
-  console.log("newCategory->",category)
+
+  }
+  console.log("newCategory->", category)
 
 
-  useEffect(()=>{
-    console.log("params->",params)
-  },[params])
-  const handleSubmit =async () => {
-    console.log("eneter the handleSubmit")
-    try{
-      const response=await axios.post('http://localhost:5000/jobs/createjob',params,{
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }})
-        console.log("Quest Form ->",response.data)
-        alert(response.data)
-      }catch{
+  // useEffect(() => {
+  //   console.log("params->", params)
+  // }, [params])
+
+  const [submitting, setSubmitting] = useState(false)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("enter the handleSubmit")
+    console.log("params->", params)
+    if (title !== "" && description !== "" && category.length !== 0 && location !== "" && difficulty !== "" && additionalInfo !== "") {
+      setSubmitting(true)
+      try {
+        const response = await axios.post('http://localhost:5000/jobs/createjob', params, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        })
+        console.log("Quest Form ->", response.data)
+        if(response.status===201){
+          alert("Quest Submitted!!")
+        }else{
+          alert(response.data.message)
+        }
+      } catch {
         console.log('Failed to Submit Form ')
         alert('Failed to Submit Form ')
       }
+      setSubmitting(false)
+    }else{
+      alert("Please Fill all details")
+    }
+
   };
   // const json={
   //   "name":title,
@@ -68,7 +84,7 @@ const QuestsForm = () => {
   //   "wage":rewards
   //  }
   // }
-  
+
 
 
   const [loading, setLoading] = useState(true);
@@ -241,11 +257,8 @@ const QuestsForm = () => {
               <button
                 type="submit"
                 className="mt-14 w-full bg-[#060606] rounded-full text-white border-2 border-black font-semibold p-4 my-2 hover:scale-105 hover:opacity-80 duration-300"
-                onClick={handleSubmit}
-
-              >
-
-                  Create Quest
+                onClick={(e) => handleSubmit(e)}
+              >{submitting ? ("Submitting...") : ("Create Quest")}
               </button>
             </div>
           </form>

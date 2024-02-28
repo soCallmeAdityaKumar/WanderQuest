@@ -42,14 +42,11 @@ const DetailsPage = () => {
   let company_id;
   useEffect(()=>{
     Aos.init({duration: 2000})
-    console.log("job_id->",job_id.job_id)
       const getDetails=async()=>{
         try{
           const response=await axios.get(`http://localhost:5000/jobs/get_job?job_id=${job_id}`)
-          off=response.data[0]
-          console.log("offdetails->",response.data[0])
+          off=response.data.jobs[0]
           company_id=off.company_id
-          console.log("company_id",company_id)
           try{
             const resp= await axios.get(`http://localhost:5000/auth/company/company_for_quest?id=${company_id}`)
             setCompanyDetails(resp.data[0])
