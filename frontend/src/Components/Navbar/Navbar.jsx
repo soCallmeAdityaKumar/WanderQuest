@@ -86,6 +86,9 @@ const Navbar = () => {
              {<button className="btn">
                 <a href="/form">Create Quest</a>
               </button>}
+              {loggedin&&<button className="btn">
+                <a href="/userprofile">Profile</a>
+              </button>}
             </div>
             
           </ul>

@@ -73,8 +73,9 @@ export const AuthProvider = ({ children }) => {
       const {message}=resp.data
       if(resp.status===201){
         const {user}=resp.data
-        localStorage.setItem('isLoggedin',false)
-        localStorage.setItem('Token',null)
+        localStorage.removeItem('isLoggedin')
+        localStorage.removeItem('Token')
+        localStorage.removeItem('isUser')
         dispatch({ type: 'AUTH_SUCCESS', payload: {statusCode:resp.status,user:user,token:null,message:message,isLoggedin:false,isUser:isuser} });
       }else{
         localStorage.setItem('isLoggedin',false)

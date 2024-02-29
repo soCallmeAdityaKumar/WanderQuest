@@ -53,6 +53,7 @@ const UserProfile = () => {
   useEffect(()=>{
   },[token])
   const [updating,setUpdating]=useState(false)
+  // const [mess,setmess]=useState(null)
   const handleUpdate= async()=>{
     setUpdating(true)
   try{
@@ -63,6 +64,9 @@ const UserProfile = () => {
         }
         })
         updated=true
+        alert("Profile Updated")
+        // setmess(message)
+        
     }
     catch{
      console.log("Cannot Change Profile")

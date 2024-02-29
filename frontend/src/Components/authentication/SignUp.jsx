@@ -14,6 +14,7 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("")
     if(statusCode===201){
       navigate('/login');
     }
