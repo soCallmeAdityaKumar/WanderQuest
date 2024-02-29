@@ -39,7 +39,6 @@ const UserProfile = () => {
   let updated=false
 
   const {token,message}=useAuth()
-  console.log("token->"+token)
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -52,8 +51,6 @@ const UserProfile = () => {
     "quest_preferences":questPreferences
   }
   useEffect(()=>{
-    console.log(name)
-    console.log(token)
   },[token])
   const [updating,setUpdating]=useState(false)
   const handleUpdate= async()=>{
@@ -65,7 +62,6 @@ const UserProfile = () => {
           'Content-Type': 'application/json'
         }
         })
-        console.log("UserProfile->"+message+" ->"+user)
         updated=true
     }
     catch{
@@ -82,7 +78,6 @@ const UserProfile = () => {
           'Content-Type': 'application/json'
         }
         })
-        console.log("pr",response.data[0])
         const obj=response.data[0]
         if(obj.name)setName(obj.name)
         if(obj.location)setLocation(obj.location)
@@ -91,7 +86,6 @@ const UserProfile = () => {
         if(obj.rewards)setRewardsEarned(obj.rewards)
         if(obj.quest_preferences)setQuestPreferences(obj.quest_preferences)
 
-        console.log("GETProfile->"+obj.name)
     }
     catch{
      console.log("Cannot get Profile")

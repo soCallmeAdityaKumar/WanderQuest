@@ -9,28 +9,27 @@ const AdminLogin = () => {
 
   const [email, setEmail] = useState('')
   const [password, setpassword] = useState('')
-  const { login, loading, error, token, user, message, isLoggedin, isUser } = useAuth()
+  const { login, loading, error, token, user, message, isLoggedin, isUser,statusCode } = useAuth()
   const isuser = false
+  const navigate = useNavigate();
 
 
   useEffect(() => {
-    console.log('Loading:', loading);
-    console.log('Error:', error);
-    console.log('Token:', token);
-    console.log('User:', user);
-    console.log('Message:', message);
-    console.log("isLoggedin", isLoggedin)
-    console.log("isUser", isUser)
+    if(statusCode===201){
+      navigate('/');
+    }
   }, [loading])
 
-  const navigate = useNavigate();
 
   const handleLogin=()=>{
+    if(email!==''&&password!==''){
       login(email,password,"company/login",isuser)    
+    }else{
+      alert("Fill all fields")
+    }
     // else{
     //   login(email,password,"company/login")
     // }
-    navigate('/');
   }
   const [loadingPage, setLoading] = useState(true);
   useEffect(() => {

@@ -25,7 +25,6 @@ const Navbar = () => {
     logout()
     localStorage.removeItem('isLoggedin'); 
     localStorage.removeItem('isUser')
-    // console.log("isLoggedin-> after logout",isLoggedin)
     setLoggedin(!loggedin)
     setisuser(false)
   }

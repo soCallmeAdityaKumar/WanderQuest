@@ -50,7 +50,6 @@ const DetailsPage = () => {
           try{
             const resp= await axios.get(`http://localhost:5000/auth/company/company_for_quest?id=${company_id}`)
             setCompanyDetails(resp.data[0])
-            console.log("companyDetails->",resp.data[0])
           }catch{
             console.log("Cannot Get the Details of the company")
           }

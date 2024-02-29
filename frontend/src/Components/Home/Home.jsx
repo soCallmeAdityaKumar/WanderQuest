@@ -11,49 +11,31 @@ const Home = ({handleDataFromHome}) => {
   const [category ,setCategory]=useState('')
   const [company ,setCompany]=useState('')
   const handleData=(data)=>{
-    console.log("Home -> HandleData->",data)
-    console.log("Data changed")
-    handleDataFromHome(data)
+    handleDataFromHome(data.jobs)
   }
-
-  // useEffect(()=>{
-  //   handleSearch()
-  // },[location,category,company])
-  // useEffect(()=>{
-  //   console.log("Home -> HandleData->",data)
-  //   console.log("Data changed")
-  //   handleDataFromHome(data)
-  // },[])
 
   const handleSearch=async()=>{
     if(location!==''&&category!==''&&company!==''){
       const response=await axios.get(`http://localhost:5000/jobs/filter?location=${location}&category=${category}&name=${company}`)
       handleData(response.data)
-      console.log(response.data)
     }else if(company==''&&location==''){
       const response=await axios.get(`http://localhost:5000/jobs/category?category=${category}}`)
       handleData(response.data)
-      console.log(response.data)
     }else if(company==''&&category==''){
       const response=await axios.get(`http://localhost:5000/jobs/location?location=${location}`)
       handleData(response.data)
-      console.log(response.data)
     }else if(location==''&&category==''){
       const response=await axios.get(`http://localhost:5000/jobs/company_name?name=${company}`)
       handleData(response.data)
-      console.log(response.data)
     }else if(location==''){
       const response=await axios.get(`http://localhost:5000/jobs/filterIC?catergory=${category}&name=${company}`)
       handleData(response.data)
-      console.log(response.data)
     }else if(category==''){
       const response=await axios.get(`http://localhost:5000/jobs/filetrLI?name=${company}&location=${location}`)
       handleData(response.data)
-      console.log(response.data)
     }else if(company==''){
       const response=await axios.get(`http://localhost:5000/jobs/filterLC?category=${category}&location=${location}`)
       handleData(response.data)
-      console.log(response.data)
     }else{
       // Show a toast to enter some details
     }

@@ -18,7 +18,6 @@ const QuestsForm = () => {
   const [additionalInfo, setAdditionalInfo] = useState("");
   const isLoggedin = localStorage.getItem('isLoggedin')
   const token = localStorage.getItem('Token')
-  console.log("token->", token)
   const params = {
     "title": title,
     "description": description,
@@ -30,24 +29,16 @@ const QuestsForm = () => {
     "rewards": rewards
   }
   const handleCategory = (e) => {
-    // console.log("value->",e )
     const a = []
     e.forEach((ev) => a.push(ev.value))
     setCategory(a)
 
   }
-  console.log("newCategory->", category)
 
-
-  // useEffect(() => {
-  //   console.log("params->", params)
-  // }, [params])
 
   const [submitting, setSubmitting] = useState(false)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("enter the handleSubmit")
-    console.log("params->", params)
     if (title !== "" && description !== "" && category.length !== 0 && location !== "" && difficulty !== "" && additionalInfo !== "") {
       setSubmitting(true)
       try {
@@ -57,14 +48,12 @@ const QuestsForm = () => {
             'Content-Type': 'application/json'
           }
         })
-        console.log("Quest Form ->", response.data)
         if(response.status===201){
           alert("Quest Submitted!!")
         }else{
           alert(response.data.message)
         }
       } catch {
-        console.log('Failed to Submit Form ')
         alert('Failed to Submit Form ')
       }
       setSubmitting(false)

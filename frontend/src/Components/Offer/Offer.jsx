@@ -60,14 +60,7 @@ const Offer = ({questData,change,isChange}) => {
         const response=await axios.get('http://localhost:5000/jobs/all')
         if(response){
           off=response.data.jobs
-          console.log(off)
           if(off)setOffers(off)
-          console.log("offers->",offers)
-          // for(let i= 0; i<length(response.data);i++){
-          //   console.log("categor->",item)
-          // }
-          console.log("off len->",response.data[0].category)
-          response.data.forEach((item)=>console.log(item.category))
         }else{
           console.log("Error in getting offers...")
         }
@@ -79,7 +72,6 @@ const Offer = ({questData,change,isChange}) => {
       }
     }
     getOffers()
-    off.forEach((o)=>console.log(o.title,o.rewards))
   },[loadingPage])
 
   useEffect(() => {

@@ -10,18 +10,11 @@ import { useAuth } from '../authentication/service/AuthService';
 const HomePage = () => {
   const [questData, setQuest] = useState([]);
   const [change,isChange]=useState(false)
-
-
-
-  // const {logout}=useAuth()
-  // let isuser=localStorage.getItem('isUser')
-  // let isLoggedin=localStorage.getItem('isLoggedin')
-  // console.log("isLoggedin->"+isLoggedin)
-
+  
   const handleDataFromHome = (data) => {
     isChange(true)
     setQuest(data);
-    console.log("Home Page->questDatasize->",data.length)
+    console.log("Home Page->questDatasize->",data)
   };
   return (
     <>

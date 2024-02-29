@@ -82,9 +82,6 @@ export const AuthProvider = ({ children }) => {
         dispatch({ type: 'AUTH_ERROR', payload: {statusCode:resp.status,message:message,isLoggedin:false} });
       }
     } catch (error) {
-      console.log("Inside the catch")
-      localStorage.setItem('Token',null)
-      localStorage.setItem('isLoggedin',false)
       dispatch({ type: 'AUTH_ERROR', payload: {message:"Failed to Register!!.Try after Some time",isLoggedin:false} });
     }
   };
@@ -117,7 +114,6 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     //TODO
-    console.log("Inside the logout function->")
     dispatch({ type: 'LOGOUT' });
     localStorage.setItem('Token',null)
     localStorage.setItem('isLoggedin',false)

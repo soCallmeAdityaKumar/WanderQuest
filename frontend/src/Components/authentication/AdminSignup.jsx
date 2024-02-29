@@ -24,10 +24,10 @@ const AdminSignup = () => {
 
   
   useEffect(()=>{
-    console.log('Loading:', loading);
-    console.log('Error:', error);
-    console.log('User:', user);
-    console.log('Message:', message);
+    if(statusCode===201){
+      navigate('/adminlogin')
+    }
+
   },[loading])
 
   const handleClick = (e) => {

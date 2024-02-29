@@ -8,31 +8,31 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
-  const { login, loading, error, token, user, message, isLoggedin, isUser } =
+  const { login, loading, error, token, user, message, isLoggedin, isUser,statusCode } =
     useAuth();
   const isuser = true;
-
-  useEffect(() => {
-    console.log("Loading:", loading);
-    console.log("Error:", error);
-    console.log("Token:", token);
-    console.log("User:", user);
-    console.log("Message:", message);
-    console.log("isLoggedin", isLoggedin);
-    console.log("isUser", isUser);
-  }, [loading]);
-
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    login(email, password, "user/login", isuser);
+  useEffect(() => {
+      if(statusCode===201){
+        navigate('/');
+      }
+  }, [loading]);
 
-    navigate('/');
+
+  const handleLogin = () => {
+    if(email!==''&&password!==''){
+      login(email, password, "user/login", isuser);
+    }else{
+      alert("Fill all fields")
+    }
+    
 
     // else{
     //   login(email,password,"company/login")
     // }
   };
+
 
   const [loadingPage, setLoading] = useState(true);
 
@@ -44,11 +44,11 @@ const Login = () => {
 
   return (
     <>
-      {/* {loadingPage ? (
+      {loadingPage ? (
         <div className="flex items-center justify-center mt-28">
           <PuffLoader color="black" loading={loadingPage} size={100} />
         </div>
-      ) : */}
+      ) :
       (
       <div className="w-full h-screen md:p-5 lg:p-10 flex items-start p-10 bg-[#28282B]">
         <div className="w-full h-full bg-[#D8DCDB] sm:p-1 flex rounded-[25px]">
@@ -95,8 +95,13 @@ const Login = () => {
                     className="w-full bg-[#060606] rounded-full text-white font-semibold p-4 my-2 hover:scale-105 hover:opacity-90 duration-300 mt-5"
                     onClick={handleLogin}
                   >
-                    Login
+                  {loading?("Logging in...."):("Login")}
                   </button>
+                  <div className="w-full items-center flex justify-center">
+                    <p className="text-sm font-normal text-[#fb8500]">
+                      {(message === null) ? ("") : (message)}
+                    </p>
+                  </div>
                   <button className="w-full bg-white rounded-full text-[#060606] border-2 border-black font-semibold p-4 my-2 hover:scale-105 hover:opacity-80 duration-300">
                     <a href="/signup">Register</a>
                   </button>

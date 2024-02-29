@@ -9,14 +9,14 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const { signup, loading, error, token, user, message,statusCode } = useAuth();
+  const { signup, loading, error, token, user, message, statusCode } = useAuth();
   const [isUser, setIsuser] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Loading:", loading);
-    console.log("Error:", error);
-    console.log("User:", user);
-    console.log("Message:", message);
+    if(statusCode===201){
+      navigate('/login');
+    }
   }, [loading]);
   const [loadingPage, setLoading] = useState(true);
   useEffect(() => {
@@ -25,16 +25,14 @@ const SignUp = () => {
     }, 2000);
   }, []);
 
-  const navigate = useNavigate();
 
-  const handleSignup = () => {
-    console.log("name=" + name + "email=" + email + "password=" + password);
-    if (isUser) {
+  const handleSignup = (e) => {
+    e.preventDefault();
+    if(name!==''&&email!==''&&password!==''){
       signup(name, email, password, "user/register");
-    } else {
-      signup(name, email, password, "company/register");
+    }else{
+      alert("Fill all fields")
     }
-    navigate('/');
   };
 
   return (
@@ -90,14 +88,14 @@ const SignUp = () => {
                 </div>
 
                 <div className="w-full flex flex-col my-4">
-                  <button className="w-full bg-[#060606] rounded-full text-white font-semibold p-4 my-2 mt-8 hover:scale-105 hover:opacity-90 duration-300" onClick={handleSignup}>
-                  {loading ? ("Signin in....") : ("Sign Up ")}
+                  <button className="w-full bg-[#060606] rounded-full text-white font-semibold p-4 my-2 mt-8 hover:scale-105 hover:opacity-90 duration-300" onClick={(e)=>handleSignup(e)}>
+                    {loading ? ("Signin in....") : ("Sign Up ")}
                   </button>
                   <div className="w-full items-center flex justify-center">
-                  <p className="text-sm font-normal text-[#fb8500]">
-                    {(message === null) ? ("") : (message)}
-                  </p>
-                </div>
+                    <p className="text-sm font-normal text-[#fb8500]">
+                      {(message === null) ? ("") : (message)}
+                    </p>
+                  </div>
                 </div>
               </div>
               <div className="w-full items-center flex justify-center mt-8">

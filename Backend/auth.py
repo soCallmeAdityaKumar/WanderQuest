@@ -128,6 +128,8 @@ def login_user():
                                 print(user)
                                 # return jsonify({"user":user,"token":access_token})
                                 return jsonify({"message":"Loggedin successfully","user":user,"token":access_token,"refresh_token":refresh_token}),201
+                            else:
+                                 return jsonify({"message":"Enter correct credentials"})
                         except Exception as e:
                             print(e)
                     else:
@@ -261,7 +263,7 @@ def login_company():
                 cursor.execute(CREATE_NEW_COMPANY)
                 cursor.execute(GET_COMPANY_EMAIL,(email,))
                 answer=cursor.fetchone()
-                if answer:
+                if answer[0]!=0:
                     try:
                         cursor.execute(GET_HASHED_PASSWORD_COMPANY,(email,))
                         hashed_password=cursor.fetchone()[0]
@@ -269,9 +271,12 @@ def login_company():
                             cursor.execute(GET_COMPANY_PROFILE,(email,))
                             user=cursor.fetchall()
                             return jsonify({"message":"Loggedin successfully","user":user,"token":access_token,"refresh_token":refresh_token}),201
-
+                        else:
+                             return jsonify({"message":"Enter correct credentials"})
                     except Exception as e:
                          print(e)
+                else:
+                     return jsonify({"message":"User doesn't exists"})
             except Exception as e:
                     print(e)
 
