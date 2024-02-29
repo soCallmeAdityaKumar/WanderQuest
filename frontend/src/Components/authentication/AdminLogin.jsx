@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import COVER_IMAGE from "../../assets/lifestyle-summer-scene-with-cartoon-design.jpg";
 import { useAuth } from "./service/AuthService";
 import PuffLoader from "react-spinners/PuffLoader";
+import { SiYourtraveldottv } from "react-icons/si";
+import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
 
@@ -21,11 +23,14 @@ const AdminLogin = () => {
     console.log("isUser", isUser)
   }, [loading])
 
-  const handleLogin = () => {
-    login(email, password, "company/login", isuser)
+  const navigate = useNavigate();
+
+  const handleLogin=()=>{
+      login(email,password,"company/login",isuser)    
     // else{
     //   login(email,password,"company/login")
     // }
+    navigate('/');
   }
   const [loadingPage, setLoading] = useState(true);
   useEffect(() => {
@@ -43,15 +48,18 @@ const AdminLogin = () => {
       ) : (
         <div className="w-full h-screen flex items-start p-10 bg-[#28282B]">
           <div className="w-full h-full bg-[#D8DCDB] flex rounded-[25px]">
-            <div className="w-1/2 h-full flex flex-col">
+            <div className="w-1/2 h-full flex flex-col md:block hidden">
               <img
                 src={COVER_IMAGE}
                 className="w-full h-full object-cover rounded-[25px] p-4"
               />
             </div>
-            <div className="w-1/2 h-full flex flex-col p-20 bg-[#D8DCDB] justify-between items-center rounded-[25px]">
+            <div className="md:w-1/2 h-full flex flex-col p-20 bg-[#D8DCDB] justify-between items-center rounded-[25px]">
               <h1 className="text-4xl text-[#060606] font-bold mb-5">
-                <a href="/">Netropolis</a>
+              <div className="flex">
+                  <SiYourtraveldottv className="mr-5" />
+                  <a href="/">Netropolis</a>
+                </div>
               </h1>
 
               <div className="w-full flex flex-col max-w-[600px]">
